@@ -1,15 +1,12 @@
 package com.codeclan.example.bookings.controllers;
 
 import com.codeclan.example.bookings.models.Booking;
+import com.codeclan.example.bookings.models.Course;
 import com.codeclan.example.bookings.repositories.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,8 +17,14 @@ public class BookingsController {
     @Autowired
     BookingRepository bookingRepository;
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Booking> findOneBooking(@PathVariable Long id) {
+        return new ResponseEntity<>(bookingRepository.findById(id).get(), HttpStatus.OK);
+    }
+
+
     @GetMapping
-    public ResponseEntity<List<Booking>> getBookings(
+    public ResponseEntity<List<Booking>> findBookings(
             @RequestParam(name = "date", required = false) String date
     ) {
         if(date != null) {
@@ -29,5 +32,23 @@ public class BookingsController {
         }
         return new ResponseEntity<>(bookingRepository.findAll(), HttpStatus.OK);
     }
+
+    @PostMapping
+    public ResponseEntity<Booking> postBooking(@RequestBody Booking booking) {
+        bookingRepository.save(booking);
+        return new ResponseEntity<>(booking, HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Booking> putCourse(@RequestBody Booking booking, @PathVariable Long id) {
+        bookingRepository.save(booking);
+        return new ResponseEntity<>(booking, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity <?> deleteCourse(@PathVariable Long id) {
+        bookingRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    };
 
 }

@@ -7,10 +7,7 @@ import com.codeclan.example.bookings.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +17,12 @@ public class CourseController {
 
     @Autowired
     private CourseRepository courseRepository;
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Course> findOneCourse(@PathVariable Long id) {
+        return new ResponseEntity<>(courseRepository.findById(id).get(), HttpStatus.OK);
+    };
+
 
     @GetMapping(value = "")
     public ResponseEntity<List<Course>> findCourses(
@@ -36,4 +39,24 @@ public class CourseController {
 
         return new ResponseEntity<>(courseRepository.findAll(), HttpStatus.OK);
     }
+
+    @PostMapping
+    public ResponseEntity<Course> postCourse(@RequestBody Course course) {
+        courseRepository.save(course);
+        return new ResponseEntity<>(course, HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Course> putCourse(@RequestBody Course course, @PathVariable Long id) {
+        courseRepository.save(course);
+        Course found = courseRepository.getOne(id);
+        return new ResponseEntity<>(course, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity <?> deleteCourse(@PathVariable Long id) {
+        courseRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    };
+
 }
