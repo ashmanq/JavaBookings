@@ -57,7 +57,11 @@ public class Course {
     }
 
     public void setRating(int rating) {
-        this.rating = rating;
+        // Checking to see that rating is between 0 and 5
+        if(rating >=0 && rating <= 5) {
+            this.rating = rating;
+        }
+
     }
 
     public List<Booking> getBookings() {
