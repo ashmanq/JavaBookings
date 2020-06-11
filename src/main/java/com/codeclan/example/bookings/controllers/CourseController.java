@@ -48,9 +48,18 @@ public class CourseController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Course> putCourse(@RequestBody Course course, @PathVariable Long id) {
+//        if(courseRepository.findById(id).isPresent()) {
+//            Course found = courseRepository.findById(id).get();
+//            found.setName(course.getName());
+//            found.setRating(course.getRating());
+//            found.setTown(course.getTown());
+//            found.setBookings(course.getBookings());
+//            courseRepository.save(found);
+//            return new ResponseEntity<>(found, HttpStatus.CREATED);
+//        }
+//        course = null;
         courseRepository.save(course);
-        Course found = courseRepository.getOne(id);
-        return new ResponseEntity<>(course, HttpStatus.CREATED);
+        return new ResponseEntity<>(course, HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping(value = "/{id}")

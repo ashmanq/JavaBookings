@@ -49,14 +49,14 @@ public class CustomerController {
     @PutMapping(value = "/{id}")
     public ResponseEntity<Customer> putCustomer(@RequestBody Customer customer, @PathVariable Long id) {
         customerRepository.save(customer);
-        return new ResponseEntity<>(customer, HttpStatus.CREATED);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity <?> deleteCustomer(@PathVariable Long id) {
+    public ResponseEntity <Long> deleteCustomer(@PathVariable Long id) {
         customerRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>(id, HttpStatus.OK);
     };
 
 

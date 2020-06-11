@@ -13,7 +13,7 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -26,7 +26,7 @@ public class Course {
 
     @JsonIgnoreProperties("course")
 //    @JsonIgnore
-    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Booking> bookings;
 
     public Course(String name, String town, int rating) {
@@ -75,6 +75,10 @@ public class Course {
     }
 
     public Long getId() {
-        return Id;
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
