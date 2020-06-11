@@ -1,5 +1,6 @@
 package com.codeclan.example.bookings.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -22,7 +23,8 @@ public class Booking {
     private Course course;
 
     @ManyToOne
-    @JsonIgnoreProperties("bookings")
+    @JsonBackReference
+//    @JsonIgnoreProperties("bookings")
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 

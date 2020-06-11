@@ -1,5 +1,6 @@
 package com.codeclan.example.bookings.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -23,7 +24,8 @@ public class Customer {
     @Column(name = "age")
     private int age;
 
-    @JsonIgnoreProperties("customer")
+//    @JsonIgnoreProperties("customer")
+    @JsonBackReference
     @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Booking> bookings;
 
