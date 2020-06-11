@@ -1,6 +1,8 @@
 package com.codeclan.example.bookings.controllers;
 
+import com.codeclan.example.bookings.models.Course;
 import com.codeclan.example.bookings.models.Customer;
+import com.codeclan.example.bookings.repositories.CourseRepository;
 import com.codeclan.example.bookings.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,14 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/customers")
-public class CustomerController {
+@RequestMapping("/courses")
+public class CourseController {
+
     @Autowired
-    private CustomerRepository customerRepository;
+    private CourseRepository courseRepository;
 
     @GetMapping(value = "")
-    public ResponseEntity<List<Customer>> findCustomers(
-            ) {
-        return new ResponseEntity<>(customerRepository.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<Course>> findCourses(
+    ) {
+        return new ResponseEntity<>(courseRepository.findAll(), HttpStatus.OK);
     }
 }
